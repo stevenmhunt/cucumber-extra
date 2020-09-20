@@ -1,0 +1,70 @@
+{
+    "backtrace": {
+        "flag": "--backtrace",
+        "type": "flag"
+    },
+    "dryRun": {
+        "flag": "--dry-run",
+        "type": "flag"
+    },
+    "exit": {
+        "flag": "--exit",
+        "type": "flag"
+    },
+    "failFast": {
+        "flag": "--fail-fast",
+        "type": "flag"
+    },
+    "format": {
+        "flag": "--format",
+        "type": "array"
+    },
+    "formatOptions": {
+        "flag": "--format-options",
+        "type": "json"
+    },
+    "language": {
+        "flag": "--language",
+        "type": "string"
+    },
+    "name": {
+        "flag": "name",
+        "type": "string"
+    },
+    "noStrict": {
+        "flag": "--no-strict",
+        "type": "flag"
+    },
+    "order": {
+        "flag": "--order",
+        "type": "string"
+    },
+    "parallel": {
+        "flag": "--parallel",
+        "type": "number"
+    },
+    "require": {
+        "flag": "--require",
+        "type": "array"
+    },
+    "requireModule": {
+        "flag": "--require-module",
+        "type": "array"
+    },
+    "retry": {
+        "flag": "--retry",
+        "type": "number"
+    },
+    "retryTagFilter": {
+        "flag": "--retry-tag-filter",
+        "type": "array"
+    },
+    "tags": {
+        "flag": "--tags",
+        "type": "array"
+    },
+    "worldParameters": {
+        "flag": "--world-parameters",
+        "type": "json"
+    }
+}
