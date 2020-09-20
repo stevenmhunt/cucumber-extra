@@ -17,8 +17,7 @@ npm install cucumber-extra
 ## Configuration
 In the `./features/support` directory, create a file `cucumber-extra.js`:
 ```javascript
-const { load } = require('cucumber-extra');
-load();
+require('cucumber-extra')();
 ```
 
 Create a `.cucumber-extra.json` file in your project to configure various aspects of the add-ins.
@@ -64,7 +63,7 @@ Note: you can also return the load function as the default export, but you may w
 ## BeforeStep and AfterStep Hooks
 Older versions of CucumberJS support these hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the *pickle* object from the current scenario (if applicable). These hooks are integrated with CucumberJS using `setDefinitionFunctionWrapper`.
 ```javascript
-const { BeforeStep, AfterStep } = require('cucumber-extra');
+const { BeforeStep, AfterStep } = require('cucumber-extra/hooks');
 
 // runs before every step and hook.
 BeforeStep(function({ pickle }) {
@@ -85,32 +84,36 @@ Add the following section to your `.cucumber-extra.json` file:
     ...
     "steps": {
         "delay": {
+            // (default: 0) the number of milliseconds to wait before a step or hook is executed.
             "before": 1000,
+            // (default: 0) the number of milliseconds to wait after a step or hook is executed.
             "after": 1000
         },
         "retries": {
+            // (default: 0) the number of times to attempt to retry a step or hook if it fails.
             "count": 3,
+            // (default: 0) the number of milliseconds to wait before retrying a step.
             "delay": 1000,
+            // (default: 0) the number of milliseconds to add to the delay on each retry attempt.
             "backoff": 2000
         }
     },
     ...
 }
-```
-- `steps.delay.before` - (default: 0) the number of milliseconds to wait before a step or hook is executed.
-- `steps.delay.after` - (default: 0) the number of milliseconds to wait after a step or hook is executed.
-- `steps.retries.count` - (default: 0) the number of times to attempt to retry a step or hook if it fails.
-- `steps.retries.delay` - (default: 0) the number of milliseconds to wait before retrying a step.
-- `steps.retries.backoff` - (default: 0) the number of milliseconds to add to the delay on each retry attempt.
 
 ## Enhanced Type Handling
 This package supports an enhanced type system for CucumberJS which can detect and process numbers, strings, and javascript constants as well as full JSON objects. This is especially useful if you are writing tests which interact directly with HTTP web services. String literals are also supported, which allows for entering whitespaces.
 
 Add the following section to your `.cucumber-extra.json` file:
-```json
+```json5
 {
     ...
-    "useEnhancedTypes": true
+    "types": {
+        // (default: false) whether or not to use enhanced types.
+        "enabled": true, 
+        // (default: true) whether or not to support types not normally handled by CucumberJS (boolean, JSON, string literals)
+        "useExtendedTypes": true
+    }
     ...
 }
 ```
@@ -165,9 +168,9 @@ This package allows for all step definition parameters including tables to be pr
 - Creating more flexible and reusable step definitions
 
 ### Supported Engines
-- [ES6 Templates](https://www.npmjs.com/package/es6-dynamic-template)
-- [Handlebars](https://www.npmjs.com/package/handlebars)
-- [expand-template](https://www.npmjs.com/package/expand-template)
+- es6 - [ES6 Dynamic Templates](https://www.npmjs.com/package/es6-dynamic-template)
+- handlebars - [Handlebars](https://www.npmjs.com/package/handlebars)
+- expand-template - [expand-template library](https://www.npmjs.com/package/expand-template)
 - Custom engines
 
 Add the following section to your `.cucumber-extra.json` file:
@@ -175,7 +178,9 @@ Add the following section to your `.cucumber-extra.json` file:
 {
     ...
     "templates": {
+        // (default: false) whether or not to enable templates.
         "enabled": true,
+        // (default: es6) which template engine to use.
         "engine": "handlebars"
     }
     ...
@@ -230,7 +235,9 @@ Add the following section to your `.cucumber-extra.json` file:
 {
     ...
     "tracking": {
+        // (default: false) whether or not to use change tracking.
         "enabled": true,
+        // (default: true) whether or not to clean up objects automatically.
         "performCleanup": true
     }
     ...
@@ -290,8 +297,11 @@ Add the following section to your `.cucumber-extra.json` file:
 {
     ...
     "performance": {
+        // (default: false) whether or not to use performance monitoring.
         "enabled": true,
+        // (default: 0) the minimum running time to keep data from.
         "threshold": 1000,
+        // (default: console) a file to output the results, or the console.
         "output": "console"
     ...
 }
