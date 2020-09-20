@@ -1,0 +1,26 @@
+{
+  "name": "cucumber-extra",
+  "version": "0.0.1",
+  "description": "Add-ons for CucumberJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevenmhunt/cucumber-extra.git"
+  },
+  "keywords": [
+    "cucumber",
+    "gherkin"
+  ],
+  "author": "Steven Hunt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevenmhunt/cucumber-extra/issues"
+  },
+  "peerDependencies": {
+    "cucumber": "^6.0.0"
+  },
+  "homepage": "https://github.com/stevenmhunt/cucumber-extra#readme"
+}
