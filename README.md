@@ -72,12 +72,12 @@ Older versions of CucumberJS support these hooks, but the newer versions of the 
 const { BeforeStep, AfterStep } = require('cucumber-extra/hooks');
 
 // runs before every step and hook.
-BeforeStep(function({ pickle }) {
+BeforeStep(function({ pickle, args }) {
 
 });
 
 // runs after every step and hook.
-AfterStep(function({ pickle }) {
+AfterStep(function({ pickle, args, result }) {
 
 });
 ```

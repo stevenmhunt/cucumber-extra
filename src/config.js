@@ -24,11 +24,11 @@ if (!config) {
             // override all profiles to ensure proper hook initialization order.
             _.values(config.profiles).forEach((profile) => {
                 profile.require = [
-                    "./node_modules/cucumber-extra/features/hooks-first.js",
+                    "./node_modules/cucumber-extra/hooks/first.js",
                     "./features/**/*.js",
                     ...(profile.require || []),
                     "./node_modules/cucumber-extra/features/wrappers.js",
-                    "./node_modules/cucumber-extra/features/hooks-last.js"    
+                    "./node_modules/cucumber-extra/hooks/last.js"
                 ]
             });
         }

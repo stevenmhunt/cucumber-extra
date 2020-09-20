@@ -1,9 +1,8 @@
 const { BeforeAll, Before, After, AfterAll } = require('cucumber');
 const config = require('../src/config');
-const context = require('../src/context');
 
 const timeout = 1000;
-const tags = config.alwaysEnabled ? undefined : '@extra';
+const tags = config.alwaysEnabled ? null : '@extra';
 
 BeforeAll({ timeout }, () => {
     console.log('===== first before all');

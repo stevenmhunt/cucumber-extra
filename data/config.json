@@ -1,5 +1,5 @@
 {
-    "alwaysEnabled": false,
+    "alwaysEnabled": true,
     "profiles": {
         "default": {
             "require": []
@@ -22,7 +22,7 @@
     },
     "templates": {
         "enabled": true,
-        "engine": "es6"
+        "engine": "handlebars"
     },
     "tracking": {
         "enabled": true,

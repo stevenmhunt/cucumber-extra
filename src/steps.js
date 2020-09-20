@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const { promisify } = require('es6-promisify');
-const context = require('./context');
+const { pickle } = require('./context');
 
 const beforeStepHandlers = [];
 const afterStepHandlers = [];
@@ -24,20 +24,20 @@ function addAfterStepHandler(options, fn) {
     afterStepHandlers.unshift({ options, fn });
 }
 
-function executeBeforeSteps(cnx) {
-    let result = Promise.resolve();
+function executeBeforeSteps(context, args) {
+    let promises = Promise.resolve();
     beforeStepHandlers.forEach((handler) => {
-        result = result.then(() => processStepDefinition(handler.fn).call(cnx, context));
+        promises = promises.then(() => processStepDefinition(handler.fn).call(context, { pickle, args }));
     });
-    return result;
+    return promises;
 }
 
-function executeAfterSteps(cnx) {
-    let result = Promise.resolve();
+function executeAfterSteps(context, args, err, result) {
+    let promises = Promise.resolve();
     afterStepHandlers.forEach((handler) => {
-        result = result.then(() => processStepDefinition(handler.fn).call(cnx, context));
+        promises = promises.then(() => processStepDefinition(handler.fn).call(context, { pickle, args, err, result }));
     });
-    return result;
+    return promises;
 }
 
 module.exports = {
