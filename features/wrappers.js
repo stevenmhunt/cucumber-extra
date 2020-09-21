@@ -4,6 +4,21 @@ const { processStepDefinition, executeBeforeSteps, executeAfterSteps } = require
 const { processArguments } = require('../src/args');
 const context = require('../src/context');
 
+async function executeWithRetries(context, step, args) {
+    let exception = undefined;
+    for (let i = 0; i < config.steps.retry.count; i += 1) {
+        try {
+            const result = await step.apply(context, args);
+            return result;
+        }
+        catch (err) {
+            exception = err;
+        }
+    }
+    // we shouldn't make it here if the step ran successfully.
+    throw exception;
+}
+
 /**
  * @private
  * Executes the given step definition and provides the
@@ -21,7 +36,7 @@ function executeStepDefinition(fn) {
         // execute the step definition.
         try {
             const step = processStepDefinition(fn, args);
-            result = await step.apply(this, args);
+            result = await executeWithRetries(this, step, args);
             // capture and return the result in case the hook or step wants to skip the test.
             return result;
         }

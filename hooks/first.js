@@ -1,5 +1,5 @@
 const { BeforeAll, Before, After, AfterAll, setDefaultTimeout } = require('cucumber');
-const { BeforeStep, AfterStep } = require('../hooks');
+const { BeforeStep, AfterStep } = require('../index');
 const config = require('../src/config');
 
 const timeout = 1000;

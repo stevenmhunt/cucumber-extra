@@ -1,13 +1,13 @@
 const _ = require('lodash');
 
 const handlers = [];
-function addBeforeValueHandler(fn) {
-    handlers.push(fn);
+function addBeforeValueHandler(options, fn) {
+    handlers.push({ options, fn });
 }
 
 function executeBeforeValueHandlers(value) {
     let result = value;
-    handlers.forEach((fn) => {
+    handlers.forEach(({ options, fn }) => {
         result = fn(result);
     });
     return result;

@@ -1,12 +1,12 @@
-# CucumberJS Extra
-Extra tools and utilities for CucumberJS :cucumber:
-- Manage CucumberJS profiles with a YAML file.
-- `BeforeStep` and `AfterStep` hooks.
-- Configurable step delays.
+# :cucumber: Cucumber.js Extra
+Additional tools, utilities, and capabilities for [Cucumber.js](https://github.com/cucumber/cucumber-js).
+- Manage all of your profiles with a YAML file (no more annoying CLI arguments!)
+- Additional hooks including `BeforeStep`, `AfterStep`, and `BeforeValue`.
+- Configurable delays and retries at the step level.
 
 More coming soon!
 
-<img alt="Can you not be extra for 10 minutes?" src="https://img.ifunny.co/images/11f611b03215913c50e0afdcbe321cbb201ab852771f766ef60484ff8e5add1f_1.jpg" width="200" />
+<img alt="My friend: Can you not be extra for 10 minutes? Me 11 minutes later (bird in a vegetable costume)" src="https://img.ifunny.co/images/11f611b03215913c50e0afdcbe321cbb201ab852771f766ef60484ff8e5add1f_1.jpg" width="300" />
 
 ## Installation
 ```bash
@@ -18,13 +18,13 @@ npm install cucumber-extra
 
 2) Create a `cucumber.js` file in your project and set it to the following:
 ```javascript
-module.exports = require('cucumber-extra');
+module.exports = require('cucumber-extra/profiles');
 ```
 
 3) Create a `cucumber-extra.yaml` file in your project.
 
-## Profile Management
-This package provides a concise way of managing one or more profiles in YAML, making it simple to keep track of step definition libraries, languages, formatters, and other configurable options in CucumberJS.
+## Simple Profile Management
+This package provides a convinient way of managing one or more profiles in YAML, making it simple to keep track of step definition libraries, languages, formatters, and other configurable options in your test project.
 
 Here is an example of configuring all possible command-line options through profiles. You can omit this section entirely or only add the parameters you wish to change:
 ```yaml
@@ -59,30 +59,30 @@ profiles:
     profile2:
         ...
 ```
-You can define one or more profiles here, and then use the `--profile <name>` flag to specify it when you run CucumberJS.
-
-For more information on CucumberJS command-line parameters, review [the CucumberJS CLI documentation](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).
+You can define one or more profiles here, and then use the `--profile <name>` flag to specify it when you run `./node_modules/.bin/cucumber-js`. For more information on command-line parameters, review [the Cucumber.js CLI documentation](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).
 
 ## Hooks
-Older versions of CucumberJS support the `BeforeStep` and `AfterStep` hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the `pickle` object from the current scenario (if applicable). They are implemented within CucumberJS using `setDefinitionFunctionWrapper`. There is also a wrapper available around all step definition arguments (including table fields and values) which allows you to transform that data during a running test, and can be accessed using the `BeforeValue` hook.
+This package implements a step definition wrapper using `setDefinitionFunctionWrapper` in order to provide step-level hooks and the ability to modify step definition arguments at runtime. This wrapper is compatible with synchronous and asynchronous step definitions and supports both callbacks and promises.
+
 ```javascript
-const { BeforeStep, AfterStep } = require('cucumber-extra/hooks');
+const { BeforeStep, AfterStep, BeforeValue } = require('cucumber-extra');
 
 // runs before every step.
 BeforeStep(function({ pickle, args }) {
-
+    // use `this` to reference the current scenario context here.    
 });
 
 // runs after every step.
-AfterStep(function({ pickle, args, result }) {
-
+AfterStep(function({ pickle, args, err, result }) {
+    // use `this` to reference the current scenario context here.
 });
 
-// runs for every argument and table value.
-BeforeValue(value => value);
+// runs for every argument and table header and value.
+// Example: make all step definition arguments upper case strings.
+BeforeValue(value => `${value}`.toUpperCase());
 ```
 
-## Step Delays
+## Step Delays and Retries
 
 Add the following section to your `cucumber-extra.yaml` file:
 ```yaml
