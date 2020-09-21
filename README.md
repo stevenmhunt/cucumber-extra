@@ -106,5 +106,6 @@ steps:
 
 ## Future Plans
 - Enhanced type system with support for booleans, string literals, and JSON.
-- Template engine support (Handlebars, ES6 Dynamic Templates)
-- Performance Monitoring and Reporting
+- Template engine support (Handlebars, ES6 Dynamic Templates).
+- Object change tracking and clean-up.
+- Performance Monitoring and Reporting.
