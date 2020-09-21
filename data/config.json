@@ -12,6 +12,11 @@
         "delay": {
             "before": 0,
             "after": 0
+        },
+        "retry": {
+            "count": 0,
+            "delay": 0,
+            "backoff": 0
         }
     }
 }

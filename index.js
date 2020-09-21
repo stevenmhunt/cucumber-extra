@@ -29,7 +29,7 @@ function AfterStep(...args) {
  * Note: the specified hook *must* be synchronous and return the modified value.
  * @param {function} fn The hook function.
  */
-function BeforeValue(fn) {
+function BeforeValue(...args) {
     const options = args.length === 2 ? args[0] : { timeout };
     const fn = args.length === 2 ? args[1] : args[0];
     return addBeforeValueHandler(options, fn);

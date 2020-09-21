@@ -1,4 +1,5 @@
-const { BeforeAll, Before, After, AfterAll, setDefaultTimeout } = require('cucumber');
+const { setDefaultTimeout } = require('cucumber');
+const { sleep } = require('wait-promise');
 const { BeforeStep, AfterStep } = require('../index');
 const config = require('../src/config');
 
@@ -10,8 +11,8 @@ if (config.timeouts.global) {
 }
 
 if (config.steps.delay.before) {
-    BeforeStep(() => new Promise(r => setTimeout(r, config.steps.delay.before)));
+    BeforeStep(() => sleep(config.steps.delay.before));
 }
 if (config.steps.delay.after) {
-    AfterStep(() => new Promise(r => setTimeout(r, config.steps.delay.after)));
+    AfterStep(() => sleep(r, config.steps.delay.after));
 }

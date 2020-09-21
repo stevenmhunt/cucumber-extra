@@ -3,16 +3,20 @@ const config = require('../src/config');
 const { processStepDefinition, executeBeforeSteps, executeAfterSteps } = require('../src/steps');
 const { processArguments } = require('../src/args');
 const context = require('../src/context');
+const { sleep } = require('wait-promise');
 
 async function executeWithRetries(context, step, args) {
     let exception = undefined;
     for (let i = 0; i < config.steps.retry.count; i += 1) {
+        if (i > 0) {
+            await sleep(config.steps.retry.delay + (i - 1) * config.steps.retry.backoff);
+        }
         try {
             const result = await step.apply(context, args);
             return result;
         }
         catch (err) {
-            exception = err;
+            exception = err;            
         }
     }
     // we shouldn't make it here if the step ran successfully.

@@ -8,7 +8,16 @@ function addBeforeValueHandler(options, fn) {
 function executeBeforeValueHandlers(value) {
     let result = value;
     handlers.forEach(({ options, fn }) => {
-        result = fn(result);
+        try {
+            const v = fn(result);
+            if (v !== undefined || (options && options.allowUndefined)) {
+                result = v;
+            }
+        }
+        catch (err) {
+            // we don't care about transform errors.
+            // if something bad happens, don't break the test over it.
+        }
     });
     return result;
 }
