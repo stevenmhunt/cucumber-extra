@@ -24,7 +24,7 @@ module.exports = require('cucumber-extra');
 3) Create a `cucumber-extra.yaml` file in your project.
 
 ## Profile Management
-This package provides a concise way of managing one or more profiles in YAML, making it simple to manage step definition libraries, languages, formatters, and other configurable options in CucumberJS.
+This package provides a concise way of managing one or more profiles in YAML, making it simple to keep track of step definition libraries, languages, formatters, and other configurable options in CucumberJS.
 
 Here is an example of configuring all possible command-line options through profiles. You can omit this section entirely or only add the parameters you wish to change:
 ```yaml
@@ -63,8 +63,8 @@ You can define one or more profiles here, and then use the `--profile <name>` fl
 
 For more information on CucumberJS command-line parameters, review [the CucumberJS CLI documentation](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).
 
-## BeforeStep and AfterStep Hooks
-Older versions of CucumberJS support these hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the `pickle` object from the current scenario (if applicable). These hooks are integrated with CucumberJS using `setDefinitionFunctionWrapper`.
+## Hooks
+Older versions of CucumberJS support the `BeforeStep` and `AfterStep` hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the `pickle` object from the current scenario (if applicable). They are implemented within CucumberJS using `setDefinitionFunctionWrapper`. There is also a wrapper available around all step definition arguments (including table fields and values) which allows you to transform that data during a running test, and can be accessed using the `BeforeValue` hook.
 ```javascript
 const { BeforeStep, AfterStep } = require('cucumber-extra/hooks');
 
@@ -77,6 +77,9 @@ BeforeStep(function({ pickle, args }) {
 AfterStep(function({ pickle, args, result }) {
 
 });
+
+// runs for every argument and table value.
+BeforeValue(value => value);
 ```
 
 ## Step Delays
