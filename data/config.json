@@ -5,6 +5,9 @@
             "require": []
         }
     },
+    "timeouts": {
+        "global": 0
+    },
     "steps": {
         "delay": {
             "before": 0,
