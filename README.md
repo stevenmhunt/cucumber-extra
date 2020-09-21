@@ -23,8 +23,6 @@ module.exports = require('cucumber-extra');
 
 3) Create a `cucumber-extra.yaml` file in your project.
 
-To enable `cucumber-extra` in your feature file, either use the `@extra` tag on your scenarios or set `alwaysEnabled` setting to `true` in the `cucumber-extra.yaml` file.
-
 ## Profile Management
 This package provides a concise way of managing one or more profiles in YAML, making it simple to manage step definition libraries, languages, formatters, and other configurable options in CucumberJS.
 
@@ -66,16 +64,16 @@ You can define one or more profiles here, and then use the `--profile <name>` fl
 For more information on CucumberJS command-line parameters, review [the CucumberJS CLI documentation](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).
 
 ## BeforeStep and AfterStep Hooks
-Older versions of CucumberJS support these hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the *pickle* object from the current scenario (if applicable). These hooks are integrated with CucumberJS using `setDefinitionFunctionWrapper`.
+Older versions of CucumberJS support these hooks, but the newer versions of the framework do not. These hooks provide the scenario context as `this` and also contain the `pickle` object from the current scenario (if applicable). These hooks are integrated with CucumberJS using `setDefinitionFunctionWrapper`.
 ```javascript
 const { BeforeStep, AfterStep } = require('cucumber-extra/hooks');
 
-// runs before every step and hook.
+// runs before every step.
 BeforeStep(function({ pickle, args }) {
 
 });
 
-// runs after every step and hook.
+// runs after every step.
 AfterStep(function({ pickle, args, result }) {
 
 });
@@ -88,9 +86,9 @@ Add the following section to your `cucumber-extra.yaml` file:
 steps:
     # delay configuarion for steps.
     delay:
-        # (default: 0) the number of milliseconds to wait before a step or hook is executed.
+        # (default: 0) the number of milliseconds to wait before a step is executed.
         before: 1000
-        # (default: 0) the number of milliseconds to wait after a step or hook is executed.
+        # (default: 0) the number of milliseconds to wait after a step is executed.
         after: 1000
 }
 ```
