@@ -12,29 +12,6 @@
         "delay": {
             "before": 0,
             "after": 0
-        },
-        "retries": {
-            "count": 0,
-            "delay": 0,
-            "backoff": 0
         }
-    },
-    "types": {
-        "enabled": true, 
-        "useExtendedTypes": true
-    },
-    "templates": {
-        "enabled": true,
-        "engine": "handlebars"
-    },
-    "tracking": {
-        "enabled": true,
-        "performCleanup": true
-    },
-    "performance": {
-        "enabled": true,
-        "threshold": 0,
-        "output": "console"
     }
-
 }
