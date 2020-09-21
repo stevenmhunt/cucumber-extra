@@ -8,19 +8,20 @@ Lots more extra coming soon!
 
 <img alt="My friend: Can you not be extra for 10 minutes? Me 11 minutes later (bird in a vegetable costume)" src="https://img.ifunny.co/images/11f611b03215913c50e0afdcbe321cbb201ab852771f766ef60484ff8e5add1f_1.jpg" width="300" />
 
-## Installation
+## Installation and Setup
+1) Install `cucumber` and `cucumber-extra`:
 ```bash
 npm install cucumber cucumber-extra --save
 ```
+Note: Cucumber.js 5.0.0 and above is supported.
 
-## Setup
-1) Create a `cucumber.js` file in your project and set it to the following:
+2) Create a `./cucumber.js` file in your project and set it to the following:
 ```javascript
 module.exports = require('cucumber-extra/init');
 ```
-If you already have a `cucumber.js` file: Don't panic! You don't be needing it anymore :sunglasses:
+If you already have a `./cucumber.js` file: Don't panic! You won't be needing it anymore :sunglasses:
 
-2) Create a `cucumber-extra.yaml` file in your project. You can configure *all the things* here.
+3) Create a `./cucumber-extra.yaml` file in your project. You can configure *all the things* here (including those profiles you used to keep in the `./cucumber.js` file).
 
 Congratulations on being extra! :tada:
 
@@ -102,3 +103,8 @@ steps:
         backoff: 2000
 }
 ```
+
+## Future Plans
+- Enhanced type system with support for booleans, string literals, and JSON.
+- Template engine support (Handlebars, ES6 Dynamic Templates)
+- Performance Monitoring and Reporting
