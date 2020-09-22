@@ -3,7 +3,8 @@ Additional tools, utilities, and capabilities for [Cucumber.js](https://github.c
 - Manage all of your profiles with a YAML file (no more annoying CLI arguments!)
 - Additional hooks including `BeforeStep`, `AfterStep`, and `BeforeValue`.
 - Configurable delays and retry handling for steps.
-- Enhanced type handling for step definition arguments.
+- Enhanced type handling on all step definition arguments.
+- Templating engine support on all step definition arguments.
 
 Lots more extra coming soon!
 
