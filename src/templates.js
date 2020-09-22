@@ -2,20 +2,39 @@ const Handlebars = require('handlebars');
 const _ = require('lodash');
 const config = require('../src/config');
 
-const isHbs = v => _.isString(v) && v.indexOf('{{') >= 0 && v.indexOf('}}') >= 0;
+const contexts = [];
+
+function addContext(context, options = { scope: 'global' }) {
+    contexts.push({ context, options });
+}
+
+const engines = {
+    handlebars: (value, context) => {
+        isHbs = _.isString(value) && value.indexOf('{{') >= 0 && value.indexOf('}}') >= 0;
+        if (!isHbs) {
+            return value;
+        }
+        const template = Handlebars.compile(value, { noEscape: config.templates.options.noEscape });
+        return template(getContext(context));
+    }
+};
+
+function addEngine(name, fn) {
+    engines[name] = fn;
+}
 
 function getContext(context) {
     return Object.assign({}, context || {});
 }
 
-function processTemplates(context, value) {
-    if (!isHbs(value)) {
-        return value;
+function processTemplates(value, context) {
+    if (_.isFunction(engines[config.templates.engine])) {
+        return engines[config.templates.engine](value, context);
     }
-    const template = Handlebars.compile(value, { noEscape: config.templates.options.noEscape });
-    return template(getContext(context));
 }
 
 module.exports = {
-    processTemplates
+    processTemplates,
+    addContext,
+    addEngine
 };

@@ -13,6 +13,6 @@ if (config.types.stripHiddenSpaces) {
 
 if (config.templates.enabled) {
     BeforeValue(function hook(value) {
-        return processTemplates(this, value);
+        return processTemplates(value, this);
     });
 }

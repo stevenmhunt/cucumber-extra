@@ -162,25 +162,26 @@ Note: the scenario context `this` is automatically added to the template context
 
 Adding additional objects to the templating context:
 ```javascript
-const { addToContext } = require('cucumber-extra/templates');
+const { addContext } = require('cucumber-extra');
 
 // load your config into the context to reuse commonly needed values
-addToContext(require('config'));
+addContext(require('config'));
 
-addToContext({ someValue1: 12345 });
+// add a context for the next scenario only.
+addContext({ someValue1: 12345 }, { scope: 'scenario' });
 
 ```
 
-Processing a value with the templating system:
+Processing a value with the type and templating system:
 ```javascript
-const { getValue } = require('cucumber-extra/templates');
+const { processValue } = require('cucumber-extra');
 contexts = []; // additional context objects to add.
 const value = getValue("{{someValue}}", ...contexts);
 ```
 
 Adding a custom templating engine:
 ```javascript
-const { addEngine } = require('cucumber-extra/templates');
+const { addEngine } = require('cucumber-extra');
 
 addEngine('custom-engine', (value) => {
     let result = value;

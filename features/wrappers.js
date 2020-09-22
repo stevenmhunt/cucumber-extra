@@ -31,7 +31,7 @@ async function executeWithRetries(context, step, args) {
  */
 function executeStepDefinition(fn) {
     return async function step(...initialArgs) {
-        const args = processValue(this, initialArgs);
+        const args = processValue(initialArgs, this);
         let result = undefined;
         let exception = undefined;
         if (context.isRunning && !fn.__nostep) {

@@ -1,6 +1,6 @@
 {
   "name": "cucumber-extra",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Add-ons for CucumberJS",
   "main": "index.js",
   "scripts": {
