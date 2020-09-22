@@ -25,7 +25,9 @@
   "homepage": "https://github.com/stevenmhunt/cucumber-extra#readme",
   "devDependencies": {},
   "dependencies": {
+    "es6-dynamic-template": "^2.0.0",
     "es6-promisify": "^6.1.1",
+    "handlebars": "^4.7.6",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.20",
     "resolve-path": "^1.4.0",

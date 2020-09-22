@@ -3,6 +3,7 @@ Additional tools, utilities, and capabilities for [Cucumber.js](https://github.c
 - Manage all of your profiles with a YAML file (no more annoying CLI arguments!)
 - Additional hooks including `BeforeStep`, `AfterStep`, and `BeforeValue`.
 - Configurable delays and retry handling for steps.
+- Enhanced type handling for step definition arguments.
 
 Lots more extra coming soon!
 
@@ -104,8 +105,91 @@ steps:
 }
 ```
 
+## Type Handling
+
+Add the following section to your `cucumber-extra.yaml` file:
+```yaml
+types:
+    # (default: true) whether or not type handling is enabled.
+    enabled: true
+    # the supported types.
+    supported:
+        # (default: true) convert number-like strings into numbers.
+        numbers: true
+        # (default: true) parse JSON strings into objects or arrays.
+        json: true
+        # (default: true) convert known keywords (null, true, false) into their literal values.
+        keywords: true
+        # (default: true) support for wrapping strings in single or double quotes.
+        # Note: this allows you to specify whitespace strings inside of gherkin tables!
+        literals: true
+    # (default: true) remove any hidden or zero-width spaces.
+    stripHiddenSpaces: true
+```
+
+## Templates
+This package allows for all step definition parameters including tables to be processed through a templating engine, which allows for the scenario context and any other relevant sources of data to be referenced directly from the feature file. Common uses for this functionality include:
+- Handling identifiers which change for every test
+- Updating information based on data generated earlier in the scenario
+- Creating more flexible and reusable step definitions
+
+### Supported Engines
+- handlebars - [Handlebars](https://www.npmjs.com/package/handlebars)
+- es6 - [ES6 Dynamic Templates](https://www.npmjs.com/package/es6-dynamic-template)
+- expand-template - [expand-template library](https://www.npmjs.com/package/expand-template)
+- Custom engines
+
+Add the following section to your `cucumber-extra.yaml` file:
+```yaml
+templates:
+    # (default: true) whether or not to enable templates.
+    enabled: true
+    # (default: handlebars) which template engine to use.
+    engine: handlebars
+```
+Using templating in a scenario:
+```gherkin
+Scenario: creating and then modifying an object
+Given a "user" object is created in the system:
+| name |
+| Rob  |
+When object "{{lastObject.id}}" is updated:
+| name                   |
+| {{lastObject.name}}ert |
+
+```
+Note: the scenario context `this` is automatically added to the template context.
+
+Adding additional objects to the templating context:
+```javascript
+const { addToContext } = require('cucumber-extra/templates');
+
+// load your config into the context to reuse commonly needed values
+addToContext(require('config'));
+
+addToContext({ someValue1: 12345 });
+
+```
+
+Processing a value with the templating system:
+```javascript
+const { getValue } = require('cucumber-extra/templates');
+contexts = []; // additional context objects to add.
+const value = getValue("{{someValue}}", ...contexts);
+```
+
+Adding a custom templating engine:
+```javascript
+const { addEngine } = require('cucumber-extra/templates');
+
+addEngine('custom-engine', (value) => {
+    let result = value;
+    // ... do something with the value.
+    return result;
+});
+```
+Template engines such as lodash templates and ejs are not supported out-of-the-box because they encourage the use of embedded javascript, which should be avoided if possible.
+
 ## Future Plans
-- Enhanced type system with support for booleans, string literals, and JSON.
-- Template engine support (Handlebars, ES6 Dynamic Templates).
 - Object change tracking and clean-up.
 - Performance Monitoring and Reporting.

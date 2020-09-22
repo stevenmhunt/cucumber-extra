@@ -27,7 +27,7 @@ if (!config) {
                     "./node_modules/cucumber-extra/hooks/first.js",
                     "./features/**/*.js",
                     ...(profile.require || []),
-                    "./node_modules/cucumber-extra/features/wrappers.js",
+                    "./node_modules/cucumber-extra/features/",
                     "./node_modules/cucumber-extra/hooks/last.js"
                 ]
             });

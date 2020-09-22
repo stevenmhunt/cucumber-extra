@@ -1,5 +1,5 @@
 const { addBeforeStepHandler, addAfterStepHandler } = require('./src/steps');
-const { addBeforeValueHandler } = require('./src/args');
+const { addBeforeValueHandler, processValue } = require('./src/args');
 const timeout = 5000;
 
 /**
@@ -33,6 +33,16 @@ function BeforeValue(...args) {
     const options = args.length === 2 ? args[0] : { timeout };
     const fn = args.length === 2 ? args[1] : args[0];
     return addBeforeValueHandler(options, fn);
+}
+
+/**
+ * Runs an object through the value processing system (type handling and templating).
+ * @param {*} context The current scenario context.
+ * @param {*} value The value to process.
+ * @returns {*} the result.
+ */
+function getValue(context, value) {
+    return processValue(context, value);
 }
 
 module.exports = {

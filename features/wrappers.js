@@ -1,7 +1,7 @@
 const { setDefinitionFunctionWrapper } = require('cucumber');
 const config = require('../src/config');
 const { processStepDefinition, executeBeforeSteps, executeAfterSteps } = require('../src/steps');
-const { processArguments } = require('../src/args');
+const { processValue } = require('../src/args');
 const context = require('../src/context');
 const { sleep } = require('wait-promise');
 
@@ -31,7 +31,7 @@ async function executeWithRetries(context, step, args) {
  */
 function executeStepDefinition(fn) {
     return async function step(...initialArgs) {
-        const args = processArguments(initialArgs);
+        const args = processValue(this, initialArgs);
         let result = undefined;
         let exception = undefined;
         if (context.isRunning && !fn.__nostep) {

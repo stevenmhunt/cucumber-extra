@@ -5,11 +5,11 @@ function addBeforeValueHandler(options, fn) {
     handlers.push({ options, fn });
 }
 
-function executeBeforeValueHandlers(value) {
+function executeBeforeValueHandlers(context, value) {
     let result = value;
     handlers.forEach(({ options, fn }) => {
         try {
-            const v = fn(result);
+            const v = fn.call(context, result);
             if (v !== undefined || (options && options.allowUndefined)) {
                 result = v;
             }
@@ -24,28 +24,28 @@ function executeBeforeValueHandlers(value) {
 
 const isTable = v => v.hashes && _.isFunction(v.hashes);
 
-function processValue(value) {
+function processValueInternal(context, value) {
     if (_.isFunction(value)) {
         return value;
     }
     if (isTable(value)) {
-        value.rawTable = _.cloneDeep(value).rawTable.map(processValue);
+        value.rawTable = _.cloneDeep(value).rawTable.map(v => processValueInternal(context, v));
         return value;
     }
     if (_.isArray(value)) {
-        return value.map(processValue);        
+        return value.map(v => processValueInternal(context, v));
     }
     if (_.isObject(value)) {
-        return _.mapValues(value, processValue);
+        return _.mapValues(value, v => processValueInternal(context, v));
     }
-    return executeBeforeValueHandlers(value);
+    return executeBeforeValueHandlers(context, value);
 }
 
-function processArguments(args) {
-    return processValue(args);
+function processValue(context, args) {
+    return processValueInternal(context, args);
 }
 
 module.exports = {
-    processArguments,
+    processValue,
     addBeforeValueHandler
 };

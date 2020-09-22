@@ -18,5 +18,22 @@
             "delay": 0,
             "backoff": 0
         }
+    },
+    "types": {
+        "enabled": true,
+        "supported": {
+            "json": true,
+            "keywords": true,
+            "literals": true
+        },
+        "stripHiddenSpaces": true
+    },
+    "templates": {
+        "enabled": true,
+        "engine": "handlebars",
+        "options": {
+            "cacheCompiledTemplates": true,
+            "noEscape": true
+        }
     }
 }
