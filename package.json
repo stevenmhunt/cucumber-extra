@@ -1,7 +1,7 @@
 {
   "name": "cucumber-extra",
   "version": "1.0.0",
-  "description": "Add-ons for CucumberJS",
+  "description": "Additional tools, utilities, and capabilities for Cucumber.js. ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
