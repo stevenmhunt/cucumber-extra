@@ -3,10 +3,8 @@ Additional tools, utilities, and capabilities for [Cucumber.js](https://github.c
 - Manage all of your profiles with a YAML file (no more annoying CLI arguments!)
 - Additional hooks including `BeforeStep`, `AfterStep`, and `BeforeValue`.
 - Configurable delays and retry handling for steps.
-- Enhanced type handling on all step definition arguments.
-- Templating engine support on all step definition arguments.
-
-Lots more extra coming soon!
+- Enhanced type handling for step definition arguments.
+- Template engine support for step definition arguments.
 
 <img alt="My friend: Can you not be extra for 10 minutes? Me 11 minutes later (bird in a vegetable costume)" src="https://img.ifunny.co/images/11f611b03215913c50e0afdcbe321cbb201ab852771f766ef60484ff8e5add1f_1.jpg" width="300" />
 
@@ -168,9 +166,6 @@ const { addContext } = require('cucumber-extra');
 // load your config into the context to reuse commonly needed values
 addContext(require('config'));
 
-// add a context for the next scenario only.
-addContext({ someValue1: 12345 }, { scope: 'scenario' });
-
 ```
 
 Processing a value with the type and templating system:
@@ -184,14 +179,10 @@ Adding a custom templating engine:
 ```javascript
 const { addEngine } = require('cucumber-extra');
 
-addEngine('custom-engine', (value) => {
+addEngine('custom-engine', (value, context) => {
     let result = value;
-    // ... do something with the value.
+    // ... do something with the value and the context.
     return result;
 });
 ```
 Template engines such as lodash templates and ejs are not supported out-of-the-box because they encourage the use of embedded javascript, which should be avoided if possible.
-
-## Future Plans
-- Object change tracking and clean-up.
-- Performance Monitoring and Reporting.
