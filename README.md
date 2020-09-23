@@ -101,7 +101,6 @@ steps:
         delay: 1000
         # (default: 0) the number of milliseconds to add to the delay on each retry attempt.
         backoff: 2000
-}
 ```
 
 ## Type Handling
